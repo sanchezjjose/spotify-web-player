@@ -1,19 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getAccessToken, getNowPlaying, getTopTracks } from '../../../lib/spotify';
-import { NowPlayingSong } from '../../../lib/types';
+import { getAccessToken, getNowPlaying } from '../../../lib/spotify';
+import { NowPlayingTrack } from '../../../lib/types';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<NowPlayingSong>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<NowPlayingTrack>) {
   const { access_token } = await getAccessToken();
   const nowPlayingResponse = await getNowPlaying(access_token);
-  const topTracksResponse = await getTopTracks(access_token);
 
   if (nowPlayingResponse.status === 204 || nowPlayingResponse.status > 400) {
     return res.status(200).json({ isPlaying: false });
   }
-
-  const topTracks = await topTracksResponse.json();
-  console.log(topTracks);
 
   const song = await nowPlayingResponse.json();
   const isPlaying = song.is_playing;

@@ -30,8 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const state = generateRandomString(16);
   const scope = 'user-read-currently-playing';
 
-  console.log(client_id);
-
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',

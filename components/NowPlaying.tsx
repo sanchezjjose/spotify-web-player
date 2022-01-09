@@ -1,16 +1,21 @@
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
-import { NowPlayingSong } from '../lib/types';
+import { NowPlayingTrack } from '../lib/types';
 
 export default function NowPlaying() {
-    const options = { refreshInterval: 1000 };
-    const { data } = useSWR<NowPlayingSong>('/api/spotify/now-playing', fetcher, options);
+    const options = { refreshInterval: 10000 };
+    const { data, error } = useSWR<NowPlayingTrack>('/api/spotify/now-playing', fetcher, options);
 
-    if (!data) {
-      return null;
-    }
+    if (error) return <div>Failed to load</div>;
+    if (!data) return <div>Loading...</div>;
 
     return (
-        <div>Now Playing {data.title}</div>
+        <>
+            {data.title ?
+                <div>Now Playing {data.title}</div> :
+                <div>Not Playing.</div>
+            }
+            <a href='/top-tracks'>My Top Tracks</a>
+        </>
     );
 };
