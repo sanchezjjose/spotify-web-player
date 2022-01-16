@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Script from 'next/script';
 
-import { init } from './SpotifyPlayerInit';
+import { init, play } from './SpotifyPlayerInit';
 
 export default function SpotifyPlayer() {
   const [spotifyPlayer, setSpotifyPlayer] = useState<any>(null);
+  const [deviceId, setDeviceId] = useState<any>(null);
 
   function handleClick() {
     if (spotifyPlayer) {
@@ -12,15 +13,24 @@ export default function SpotifyPlayer() {
     }
   }
 
+  function handlePlayTSU() {
+    play({
+      device_id: deviceId,
+      spotify_uri: 'spotify:track:4s7QLoImIwmPi9L6dq1nVW',
+      playerInstance: spotifyPlayer
+    });
+  }
+
   return (
     <>
       <Script
         src="https://sdk.scdn.co/spotify-player.js"
         onLoad={() => {
-          init('Minimalist Spotify Web Player', setSpotifyPlayer);
+          init('Minimalist Spotify Web Player', setSpotifyPlayer, setDeviceId);
         }}
       />
       <button onClick={handleClick}>Toggle Play</button>
+      <button onClick={handlePlayTSU}>Play TSU</button>
     </>
   );
 }
