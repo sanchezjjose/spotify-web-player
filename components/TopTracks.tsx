@@ -1,6 +1,8 @@
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
 import { SpotifyTopTracks } from '../lib/types';
+import styles from '../styles/Home.module.css'
+
 import Track from './Track';
 
 export default function TopTracks() {
@@ -10,10 +12,10 @@ export default function TopTracks() {
     if (!data) return <div>Loading...</div>;
 
     return (
-        <>
+        <div className={styles.TopTracks}>
             {data.items.map((track) => (
                 <Track key={track.id} {...track} />
             ))}
-        </>
+        </div>
     );
 };
