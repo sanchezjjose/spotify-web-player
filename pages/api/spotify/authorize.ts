@@ -2,20 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import querystring from 'querystring'
 
-type Data = {
-  album?: string,
-  albumImageUrl?: string,
-  artist?: string,
-  isPlaying: boolean,
-  songUrl?: string,
-  title?: string,
-}
-
 const {
   SPOTIFY_CLIENT_ID: client_id,
 } = process.env;
 
-const REDIRECT_URI = 'http://localhost:3000/api/spotify/now-playing';
+const REDIRECT_URI = 'http://localhost:3000/api/spotify/redirects';
 
 const generateRandomString = (length: number): string => {
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -26,9 +17,9 @@ const generateRandomString = (length: number): string => {
   return text;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const state = generateRandomString(16);
-  const scope = 'user-read-currently-playing';
+  const scope = 'user-read-currently-playing user-top-read user-modify-playback-state streaming user-library-read';
 
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({

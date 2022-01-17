@@ -6,7 +6,7 @@ import NowPlaying from '../components/NowPlaying';
 import TopTracks from '../components/TopTracks';
 import SpotifyPlayer from '../components/SpotifyPlayer';
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ credentials }: any) => {
   return (
     <>
       <div className={styles.container}>
@@ -18,8 +18,15 @@ const Home: NextPage = () => {
 
         <main className={styles.main}>
           <h1 className={styles.title}>Minimalist Spotify</h1>
+
+          {!credentials.access_token &&
+            <form action='/api/spotify/authorize'>
+              <button type='submit'>Login to Spotify</button>
+            </form>
+          }
+
           <NowPlaying />
-          <SpotifyPlayer />
+          <SpotifyPlayer access_token={credentials.access_token} />
           <TopTracks />
         </main>
 
@@ -27,6 +34,22 @@ const Home: NextPage = () => {
       </div>
     </>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  const {
+    access_token = null,
+    refresh_token = null
+  } = context.req.cookies;
+
+  return {
+    props: {
+      credentials: {
+        access_token,
+        refresh_token
+      }
+    }
+  }
 }
 
 export default Home

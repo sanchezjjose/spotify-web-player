@@ -1,9 +1,8 @@
-export const init = (name, setSpotifyPlayer, setDeviceId) => {
+export const init = (name, access_token, setSpotifyPlayer, setDeviceId) => {
   window.onSpotifyWebPlaybackSDKReady = () => {
-    const token = 'BQCosV3y7B-U1p5wZ3htESA5Zq2hprj1CLG2-4OXCY4YXQJi4ZbB6DlCCWodtngFumK9hh3KKgoGr7iIMwutyYwbUYY4arpcsbP4GpEbyCckTrvlJgp9QC69RNufXjLn6qGYN81EpFNWXp5tRjNaPxEHvD7tko8PAriB0tg45vs';
     const player = new Spotify.Player({
         name,
-        getOAuthToken: cb => { cb(token); },
+        getOAuthToken: cb => { cb(access_token); },
         volume: 0.3
     });
 
@@ -34,7 +33,7 @@ export const init = (name, setSpotifyPlayer, setDeviceId) => {
 
     return player;
   }
-};
+}
 
 export const play = ({ device_id, spotify_uri, playerInstance: { _options: { getOAuthToken } } }) => {
   getOAuthToken(access_token => {

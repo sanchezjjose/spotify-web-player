@@ -3,7 +3,7 @@ import Script from 'next/script';
 
 import { init, play } from './SpotifyPlayerInit';
 
-export default function SpotifyPlayer() {
+export default function SpotifyPlayer({ access_token }: any) {
   const [spotifyPlayer, setSpotifyPlayer] = useState<any>(null);
   const [deviceId, setDeviceId] = useState<any>(null);
 
@@ -26,7 +26,7 @@ export default function SpotifyPlayer() {
       <Script
         src="https://sdk.scdn.co/spotify-player.js"
         onLoad={() => {
-          init('Minimalist Spotify Web Player', setSpotifyPlayer, setDeviceId);
+          init('Minimalist Spotify Web Player', access_token, setSpotifyPlayer, setDeviceId);
         }}
       />
       <button onClick={handleClick}>Toggle Play</button>
