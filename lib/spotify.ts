@@ -12,21 +12,6 @@ const TOP_TRACKS_ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const REDIRECTS_URI = 'http://localhost:3000/api/spotify/redirects';
 
-export const getAccessToken = async () => {
-  const response = await fetch(TOKEN_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${basic}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: querystring.stringify({
-      grant_type: 'refresh_token',
-      refresh_token,
-    }),
-  });
-  return response.json();
-};
-
 export const getAuthorizationCode = async (code: string) => {
   const response = await fetch(TOKEN_ENDPOINT, {
     method: 'POST',
@@ -42,6 +27,22 @@ export const getAuthorizationCode = async (code: string) => {
   });
   return response.json();
 }
+
+// Obsolete in favor of getAuthorizationCode below.
+export const getAccessToken = async () => {
+  const response = await fetch(TOKEN_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${basic}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: querystring.stringify({
+      grant_type: 'refresh_token',
+      refresh_token,
+    }),
+  });
+  return response.json();
+};
 
 export const getNowPlaying = async (access_token: string) => {
   return fetch(NOW_PLAYING_ENDPOINT, {

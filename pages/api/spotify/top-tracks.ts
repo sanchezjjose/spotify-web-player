@@ -4,7 +4,7 @@ import { getAccessToken, getTopTracks } from '../../../lib/spotify';
 import { SpotifyTopTracks } from '../../../lib/types';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<SpotifyTopTracks | string>) {
-  const { access_token } = await getAccessToken();
+  const access_token = req.query.access_token as string;
   const response = await getTopTracks(access_token);
 
   if (!response.ok) {

@@ -25,9 +25,9 @@ const Home: NextPage = ({ credentials }: any) => {
             </form>
           }
 
-          <NowPlaying />
+          <NowPlaying access_token={credentials.access_token} />
           <SpotifyPlayer access_token={credentials.access_token} />
-          <TopTracks />
+          <TopTracks access_token={credentials.access_token} />
         </main>
 
         <footer className={styles.footer}></footer>

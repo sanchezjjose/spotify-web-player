@@ -4,9 +4,9 @@ import styles from '../styles/Home.module.css'
 
 import { NowPlayingTrack } from '../lib/types';
 
-export default function NowPlaying() {
+export default function NowPlaying({ access_token }: any) {
   const options = { refreshInterval: 10000 };
-  const { data, error } = useSWR<NowPlayingTrack>('/api/spotify/now-playing', fetcher, options);
+  const { data, error } = useSWR<NowPlayingTrack>(`/api/spotify/now-playing?access_token=${access_token}`, fetcher, options);
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
