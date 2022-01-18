@@ -1,8 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getAuthorizationCode } from '../../../lib/spotify';
-
-const Cookies = require('cookies');
+import { getAuthorizationCode } from 'lib/spotify';
+import Cookies from 'cookies';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const code = (req.query.code as string);

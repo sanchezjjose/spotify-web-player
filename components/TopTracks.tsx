@@ -1,8 +1,7 @@
 import useSWR from 'swr';
-import fetcher from '../lib/fetcher';
-import { SpotifyTopTracks } from '../lib/types';
-import styles from '../styles/Home.module.css'
-
+import fetcher from 'lib/fetcher';
+import { SpotifyTopTracks } from 'lib/types';
+import styles from 'styles/Home.module.css'
 import Track from './Track';
 
 export default function TopTracks({ access_token }: any) {

@@ -1,4 +1,4 @@
-import { SpotifyTrack } from '../lib/types';
+import { SpotifyTrack } from 'lib/types';
 
 export default function Track(track: SpotifyTrack) {
     return (

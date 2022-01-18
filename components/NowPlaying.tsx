@@ -1,8 +1,7 @@
 import useSWR from 'swr';
-import fetcher from '../lib/fetcher';
-import styles from '../styles/Home.module.css'
-
-import { NowPlayingTrack } from '../lib/types';
+import fetcher from 'lib/fetcher';
+import styles from 'styles/Home.module.css'
+import { NowPlayingTrack } from 'lib/types';
 
 export default function NowPlaying({ access_token }: any) {
   const options = { refreshInterval: 10000 };

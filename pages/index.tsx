@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import styles from 'styles/Home.module.css';
 
-import NowPlaying from '../components/NowPlaying';
-import TopTracks from '../components/TopTracks';
-import SpotifyPlayer from '../components/SpotifyPlayer';
+import NowPlaying from 'components/NowPlaying';
+import TopTracks from 'components/TopTracks';
+import SpotifyPlayer from 'components/SpotifyPlayer';
 
 const Home: NextPage = ({ credentials }: any) => {
   return (

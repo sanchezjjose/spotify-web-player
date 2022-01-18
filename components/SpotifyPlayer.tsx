@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Script from 'next/script';
-
 import { init, play } from './SpotifyPlayerInit';
 
 export default function SpotifyPlayer({ access_token }: any) {

@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getNowPlaying } from '../../../lib/spotify';
-import { NowPlayingTrack } from '../../../lib/types';
+import { getNowPlaying } from 'lib/spotify';
+import { NowPlayingTrack } from 'lib/types';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<NowPlayingTrack>) {
   const access_token = req.query.access_token as string;
