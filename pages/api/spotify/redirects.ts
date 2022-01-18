@@ -22,7 +22,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // TODO: Replace with safe authentication flow
   const cookies = new Cookies(req, res);
-  cookies.set('access_token', access_token, { maxAge: expires_in * 1000 });
+  const options = {
+    httpOnly: true,
+    path: '/',
+    secureOnly: process.env.NODE_ENV !== 'development',
+    maxAge: expires_in * 1000
+  };
+  cookies.set('access_token', access_token, options);
   cookies.set('refresh_token', refresh_token);
 
   res.redirect('/');
