@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import { useState } from 'react';
 import Head from 'next/head';
 import styles from 'styles/Home.module.css';
 
@@ -7,6 +8,8 @@ import TopTracks from 'components/TopTracks';
 import SpotifyPlayer from 'components/SpotifyPlayer';
 
 const Home: NextPage = ({ credentials }: any) => {
+  const [player, setPlayer] = useState<any>(null);
+
   return (
     <>
       <div className={styles.container}>
@@ -25,9 +28,13 @@ const Home: NextPage = ({ credentials }: any) => {
             </form>
           }
 
-          <NowPlaying access_token={credentials.access_token} />
-          <SpotifyPlayer access_token={credentials.access_token} />
-          <TopTracks access_token={credentials.access_token} />
+          {credentials.access_token && 
+            <>
+              <NowPlaying access_token={credentials.access_token} />
+              <SpotifyPlayer access_token={credentials.access_token} player={player} setPlayer={setPlayer} />
+              <TopTracks access_token={credentials.access_token} player={player} />
+            </>
+          }
         </main>
 
         <footer className={styles.footer}></footer>

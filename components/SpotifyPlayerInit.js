@@ -1,4 +1,4 @@
-export const init = (name, access_token, setSpotifyPlayer, setDeviceId) => {
+export const init = (name, access_token, setPlayer, dispatch, updateDeviceId) => {
   window.onSpotifyWebPlaybackSDKReady = () => {
     const player = new Spotify.Player({
         name,
@@ -8,7 +8,7 @@ export const init = (name, access_token, setSpotifyPlayer, setDeviceId) => {
 
     player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id);
-        setDeviceId(device_id);
+        dispatch(updateDeviceId(device_id));
     });
 
     player.addListener('not_ready', ({ device_id }) => {
@@ -29,9 +29,7 @@ export const init = (name, access_token, setSpotifyPlayer, setDeviceId) => {
 
     player.connect();
 
-    setSpotifyPlayer(player);
-
-    return player;
+    setPlayer(player);
   }
 }
 

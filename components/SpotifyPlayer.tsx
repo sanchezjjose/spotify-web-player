@@ -1,23 +1,18 @@
-import { useState } from 'react';
 import Script from 'next/script';
-import { init, play } from './SpotifyPlayerInit';
 
-export default function SpotifyPlayer({ access_token }: any) {
-  const [spotifyPlayer, setSpotifyPlayer] = useState<any>(null);
-  const [deviceId, setDeviceId] = useState<any>(null);
+import { useAppSelector, useAppDispatch } from 'redux/hooks';
+import { updateDeviceId, selectDeviceId } from 'redux/reducers/deviceIdSlice';
+
+import { init } from './SpotifyPlayerInit';
+
+export default function SpotifyPlayer({ access_token, player, setPlayer }: any) {
+  const dispatch = useAppDispatch();
+  const deviceId = useAppSelector(selectDeviceId)
 
   function handleClick() {
-    if (spotifyPlayer) {
-      spotifyPlayer.togglePlay();
+    if (player) {
+      player.togglePlay();
     }
-  }
-
-  function handlePlayTSU() {
-    play({
-      device_id: deviceId,
-      spotify_uri: 'spotify:track:4s7QLoImIwmPi9L6dq1nVW',
-      playerInstance: spotifyPlayer
-    });
   }
 
   return (
@@ -25,11 +20,16 @@ export default function SpotifyPlayer({ access_token }: any) {
       <Script
         src="https://sdk.scdn.co/spotify-player.js"
         onLoad={() => {
-          init('Minimalist Spotify Web Player', access_token, setSpotifyPlayer, setDeviceId);
+          init(
+            'Minimalist Spotify Web Player',
+            access_token,
+            setPlayer,
+            dispatch,
+            updateDeviceId
+          );
         }}
       />
       <button onClick={handleClick}>Toggle Play</button>
-      <button onClick={handlePlayTSU}>Play TSU</button>
     </>
   );
 }

@@ -28,7 +28,7 @@ export const getAuthorizationCode = async (code: string) => {
   return response.json();
 }
 
-// Obsolete in favor of getAuthorizationCode below.
+// Deprecated in favor of getAuthorizationCode below.
 export const getAccessToken = async () => {
   const response = await fetch(TOKEN_ENDPOINT, {
     method: 'POST',
