@@ -1,14 +1,18 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Head from 'next/head';
-import styles from 'styles/Home.module.css';
-
+import Script from 'next/script';
 import NowPlaying from 'components/NowPlaying';
 import TopTracks from 'components/TopTracks';
-import SpotifyPlayer from 'components/SpotifyPlayer';
+import { init } from 'components/SpotifyPlayer';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { updateDeviceId, selectDeviceId } from 'redux/reducers/deviceIdSlice';
+import styles from 'styles/Home.module.css';
 
 const Home: NextPage = ({ credentials }: any) => {
   const [player, setPlayer] = useState<any>(null);
+  const dispatch = useAppDispatch();
+  const deviceId = useAppSelector(selectDeviceId);
 
   return (
     <>
@@ -28,16 +32,28 @@ const Home: NextPage = ({ credentials }: any) => {
             </form>
           }
 
-          {credentials.access_token && 
+          {credentials.access_token && deviceId &&
             <>
-              <NowPlaying access_token={credentials.access_token} />
-              <SpotifyPlayer access_token={credentials.access_token} player={player} setPlayer={setPlayer} />
+              <NowPlaying access_token={credentials.access_token} player={player} />
               <TopTracks access_token={credentials.access_token} player={player} />
             </>
           }
         </main>
 
         <footer className={styles.footer}></footer>
+
+        <Script
+          src="https://sdk.scdn.co/spotify-player.js"
+          onLoad={() => {
+            init(
+              'Minimalist Spotify Web Player',
+              credentials.access_token,
+              setPlayer,
+              dispatch,
+              updateDeviceId
+            );
+          }}
+        />
       </div>
     </>
   )

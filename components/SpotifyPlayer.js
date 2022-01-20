@@ -20,6 +20,7 @@ export const init = (name, access_token, setPlayer, dispatch, updateDeviceId) =>
     });
 
     player.addListener('authentication_error', ({ message }) => {
+        // debugger;
         console.error(message);
     });
 
