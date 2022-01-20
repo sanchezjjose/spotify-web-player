@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import fetcher from 'lib/fetcher';
-import styles from 'styles/Home.module.css'
+import styles from 'styles/NowPlaying.module.scss';
 import { NowPlayingTrack } from 'lib/types';
 
 export default function NowPlaying({ access_token }: any) {

@@ -1,0 +1,19 @@
+%button-shared {
+  width: 45px;
+  height: 45px;
+}
+
+%button-shared:hover {
+  cursor: pointer;
+}
+
+.SpotifyPlayer {
+
+  .playButton {
+    @extend %button-shared
+  }
+
+  .pauseButton {
+    @extend %button-shared
+  }
+}

@@ -19,7 +19,7 @@ const generateRandomString = (length: number): string => {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const state = generateRandomString(16);
-  const scope = 'user-read-currently-playing user-top-read user-modify-playback-state streaming user-library-read';
+  const scope = 'user-read-currently-playing user-top-read user-modify-playback-state streaming user-library-read user-read-private';
 
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({

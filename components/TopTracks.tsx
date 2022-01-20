@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import fetcher from 'lib/fetcher';
 import { SpotifyTopTracks } from 'lib/types';
-import styles from 'styles/Home.module.css'
+import styles from 'styles/TopTracks.module.scss'
 
 import { useAppSelector } from 'redux/hooks';
 import { selectDeviceId } from 'redux/reducers/deviceIdSlice';

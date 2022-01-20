@@ -2,6 +2,7 @@ import { SpotifyTrack } from 'lib/types';
 import { SyntheticEvent } from 'react';
 
 import { play } from './SpotifyPlayerInit';
+import styles from 'styles/Track.module.scss'
 
 interface TrackProps {
   track: SpotifyTrack,
@@ -20,7 +21,7 @@ export default function Track({ track, deviceId, player }: TrackProps) {
   }
 
   return (
-    <div>
+    <div className={styles.Track}>
       <b><a onClick={e => handleClick(e, track.uri)} href={track.uri}>{track.name}</a></b>{' '}
       {track.artists.map(artist => artist.name).join(', ')}
     </div>
