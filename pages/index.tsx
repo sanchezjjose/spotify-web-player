@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import Image from 'next/image';
@@ -8,12 +8,18 @@ import TopTracks from 'components/TopTracks';
 import { init } from 'components/SpotifyPlayer';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { updateDeviceId, selectDeviceId } from 'redux/reducers/deviceIdSlice';
+import { updateCredentials } from 'redux/reducers/credentialsSlice';
+import { updatePlayer } from 'redux/reducers/playerSlice';
 import styles from 'styles/Home.module.scss';
 
 const Home: NextPage = ({ credentials }: any) => {
-  const [player, setPlayer] = useState<any>(null);
   const dispatch = useAppDispatch();
   const deviceId = useAppSelector(selectDeviceId);
+
+  useEffect(() => {
+    console.log('Home::useEffect - Updating Credentials...');
+    dispatch(updateCredentials(credentials));
+  }, [dispatch, credentials, credentials.access_token, credentials.refresh_token]);
 
   return (
     <>
@@ -36,8 +42,8 @@ const Home: NextPage = ({ credentials }: any) => {
 
           {credentials.access_token && deviceId &&
             <>
-              <NowPlaying access_token={credentials.access_token} player={player} />
-              <TopTracks access_token={credentials.access_token} player={player} />
+              <NowPlaying />
+              <TopTracks />
             </>
           }
         </main>
@@ -51,8 +57,8 @@ const Home: NextPage = ({ credentials }: any) => {
               init(
                 'Minimalist Spotify Web Player',
                 credentials.access_token,
-                setPlayer,
                 dispatch,
+                updatePlayer,
                 updateDeviceId
               );
             }}

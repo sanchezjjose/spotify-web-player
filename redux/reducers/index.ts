@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import accessTokenSlice from 'redux/reducers/accessTokenSlice';
-import refreshTokenSlice from 'redux/reducers/refreshTokenSlice';
+import credentialsSlice from 'redux/reducers/credentialsSlice';
 import deviceIdSlice from 'redux/reducers/deviceIdSlice';
+import playerSlice from 'redux/reducers/playerSlice';
 
 export default combineReducers({
-  accessTokenSlice,
-  refreshTokenSlice,
-  deviceIdSlice
+  credentialsSlice,
+  deviceIdSlice,
+  playerSlice
 });

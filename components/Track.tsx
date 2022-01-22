@@ -3,15 +3,16 @@ import { play } from './SpotifyPlayer';
 import { SpotifyTrack } from 'lib/types';
 import { useAppSelector } from 'redux/hooks';
 import { selectDeviceId } from 'redux/reducers/deviceIdSlice';
+import { selectPlayer } from 'redux/reducers/playerSlice';
 import styles from 'styles/Track.module.scss';
 
 interface TrackProps {
-  track: SpotifyTrack,
-  player: any
+  track: SpotifyTrack
 }
 
-export default function Track({ track, player }: TrackProps) {
+export default function Track({ track }: TrackProps) {
   const deviceId = useAppSelector(selectDeviceId);
+  const player = useAppSelector(selectPlayer);
 
   function handleClick(e: SyntheticEvent, spotifyURI: string) {
     e.preventDefault();
