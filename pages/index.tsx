@@ -2,12 +2,13 @@ import type { NextPage } from 'next';
 import { useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
+import Image from 'next/image';
 import NowPlaying from 'components/NowPlaying';
 import TopTracks from 'components/TopTracks';
 import { init } from 'components/SpotifyPlayer';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { updateDeviceId, selectDeviceId } from 'redux/reducers/deviceIdSlice';
-import styles from 'styles/Home.module.css';
+import styles from 'styles/Home.module.scss';
 
 const Home: NextPage = ({ credentials }: any) => {
   const [player, setPlayer] = useState<any>(null);
@@ -24,11 +25,12 @@ const Home: NextPage = ({ credentials }: any) => {
         </Head>
 
         <main className={styles.main}>
+          <Image className={styles.spotifyLogo} src='/spotify.svg' width={32} height={32} alt='Spotify Logo' />
           <h1 className={styles.title}>Minimalist Spotify</h1>
 
           {!credentials.access_token &&
             <form action='/api/spotify/authorize'>
-              <button type='submit'>Login to Spotify</button>
+              <button className={styles.loginButton} type='submit'>Login to Spotify</button>
             </form>
           }
 
@@ -42,18 +44,20 @@ const Home: NextPage = ({ credentials }: any) => {
 
         <footer className={styles.footer}></footer>
 
-        <Script
-          src="https://sdk.scdn.co/spotify-player.js"
-          onLoad={() => {
-            init(
-              'Minimalist Spotify Web Player',
-              credentials.access_token,
-              setPlayer,
-              dispatch,
-              updateDeviceId
-            );
-          }}
-        />
+        {credentials.access_token &&
+          <Script
+            src="https://sdk.scdn.co/spotify-player.js"
+            onLoad={() => {
+              init(
+                'Minimalist Spotify Web Player',
+                credentials.access_token,
+                setPlayer,
+                dispatch,
+                updateDeviceId
+              );
+            }}
+          />
+        }
       </div>
     </>
   )
