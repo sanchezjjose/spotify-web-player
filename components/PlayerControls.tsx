@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
 import { PlayIcon, PauseIcon } from '@radix-ui/react-icons'
-import { useAppSelector } from 'redux/hooks';
-import { selectPlayer } from 'redux/reducers/playerSlice';
 import styles from 'styles/SpotifyPlayer.module.scss';
 
-export default function PlayerControls({ isPlaying }: any) {
+export default function PlayerControls({ player, isPlaying }: any) {
   const [playing, setPlaying] = useState<boolean>(isPlaying);
-  const player = useAppSelector(selectPlayer);
 
   useEffect(() => {
     console.log('PlayerControls::useEffect:[isPlaying]');

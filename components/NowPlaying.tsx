@@ -6,7 +6,7 @@ import { selectCredentials } from 'redux/reducers/credentialsSlice';
 import PlayerControls from './PlayerControls';
 import styles from 'styles/NowPlaying.module.scss';
 
-export default function NowPlaying() {
+export default function NowPlaying({ player }: any) {
   const credentials = useAppSelector(selectCredentials);
   const { accessToken } = credentials;
 
@@ -18,7 +18,7 @@ export default function NowPlaying() {
   
   return (
     <div className={styles.NowPlaying}>
-      <PlayerControls isPlaying={data.isPlaying} />
+      <PlayerControls player={player} isPlaying={data.isPlaying} />
       {data.isPlaying ?
         <div>Now Playing <span>{data.title}</span></div> :
         <div>Not Playing.</div>

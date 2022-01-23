@@ -1,18 +1,18 @@
 import type { NextPage } from 'next';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import Image from 'next/image';
 import NowPlaying from 'components/NowPlaying';
 import TopTracks from 'components/TopTracks';
-import { init } from 'components/SpotifyPlayer';
+import { SpotifyWebPlayer } from 'components/SpotifyPlayer';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { updateDeviceId, selectDeviceId } from 'redux/reducers/deviceIdSlice';
 import { updateCredentials } from 'redux/reducers/credentialsSlice';
-import { updatePlayer } from 'redux/reducers/playerSlice';
 import styles from 'styles/Home.module.scss';
 
 const Home: NextPage = ({ credentials }: any) => {
+  const [player, setPlayer] = useState<any>(null);
   const dispatch = useAppDispatch();
   const deviceId = useAppSelector(selectDeviceId);
 
@@ -40,10 +40,10 @@ const Home: NextPage = ({ credentials }: any) => {
             </form>
           }
 
-          {credentials.access_token && deviceId &&
+          {player &&
             <>
-              <NowPlaying />
-              <TopTracks />
+              <NowPlaying player={player} />
+              <TopTracks player={player} />
             </>
           }
         </main>
@@ -53,14 +53,15 @@ const Home: NextPage = ({ credentials }: any) => {
         {credentials.access_token &&
           <Script
             src="https://sdk.scdn.co/spotify-player.js"
-            onLoad={() => {
-              init(
-                'Minimalist Spotify Web Player',
-                credentials.access_token,
-                dispatch,
-                updatePlayer,
-                updateDeviceId
-              );
+            onLoad={async () => {
+              const player = new SpotifyWebPlayer('Minimalist Spotify Web Player', credentials.access_token);
+              try {
+                const deviceId = await player.connect();
+                dispatch(updateDeviceId(deviceId));
+                setPlayer(player);
+              } catch (e) {
+                console.error('There was a problem connecting to the spotify web player.', e);
+              }
             }}
           />
         }

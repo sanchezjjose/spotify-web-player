@@ -1,26 +1,20 @@
 import { SyntheticEvent } from 'react';
-import { play } from './SpotifyPlayer';
 import { SpotifyTrack } from 'lib/types';
 import { useAppSelector } from 'redux/hooks';
 import { selectDeviceId } from 'redux/reducers/deviceIdSlice';
-import { selectPlayer } from 'redux/reducers/playerSlice';
 import styles from 'styles/Track.module.scss';
 
 interface TrackProps {
+  player: any,
   track: SpotifyTrack
 }
 
-export default function Track({ track }: TrackProps) {
+export default function Track({ player, track }: TrackProps) {
   const deviceId = useAppSelector(selectDeviceId);
-  const player = useAppSelector(selectPlayer);
 
   function handleClick(e: SyntheticEvent, spotifyURI: string) {
     e.preventDefault();
-    play({
-      device_id: deviceId,
-      spotify_uri: spotifyURI,
-      playerInstance: player
-    });
+    player.play(deviceId, spotifyURI);
   }
 
   return (
