@@ -27,6 +27,7 @@ export interface SpotifyTopTracks {
 };
 
 export interface NowPlayingTrack {
+  id?: string;
   album?: string;
   albumImageUrl?: string;
   artist?: string;

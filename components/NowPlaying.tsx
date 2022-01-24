@@ -1,28 +1,23 @@
-import useSWR from 'swr';
-import fetcher from 'lib/fetcher';
-import { NowPlayingTrack } from 'lib/types';
+import Image from 'next/image';
 import { useAppSelector } from 'redux/hooks';
-import { selectCredentials } from 'redux/reducers/credentialsSlice';
+import { selectPlayerState } from 'redux/reducers/playerStateSlice';
 import PlayerControls from './PlayerControls';
 import styles from 'styles/NowPlaying.module.scss';
+import audioWave from '../public/icons8-audio-wave.gif';
 
 export default function NowPlaying({ player }: any) {
-  const credentials = useAppSelector(selectCredentials);
-  const { accessToken } = credentials;
+  const playerState = useAppSelector(selectPlayerState);
 
-  const options = { refreshInterval: 10000 };
-  const { data, error } = useSWR<NowPlayingTrack>(`/api/spotify/now-playing?access_token=${accessToken}`, fetcher, options);
-
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading Now Playing...</div>;
-  
   return (
     <div className={styles.NowPlaying}>
-      <PlayerControls player={player} isPlaying={data.isPlaying} />
-      {data.isPlaying ?
-        <div>Now Playing <span>{data.title}</span></div> :
-        <div>Not Playing.</div>
+      {playerState.paused ?
+        <div>Not Playing.</div> :
+        <>
+          <Image className={styles.audioWaveImg} src={audioWave} width={60} height={60} alt='Audio Wave' />
+          <div>Now Playing <span>{playerState.track_window.current_track.name}</span></div>
+        </>
       }
+      <PlayerControls player={player} />
     </div>
   );
 };

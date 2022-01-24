@@ -1,5 +1,3 @@
 - Implement proper authentication flow
-- Move SpotifyPlayerInit.js play() method to a NextJS Spotify API
-- Introduce Redux to manage global state for player and deviceId. This will be used in other components like TopTracks or future Playlists.
 - Styling
 - Types

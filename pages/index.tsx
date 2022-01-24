@@ -6,15 +6,15 @@ import Image from 'next/image';
 import NowPlaying from 'components/NowPlaying';
 import TopTracks from 'components/TopTracks';
 import { SpotifyWebPlayer } from 'components/SpotifyPlayer';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { updateDeviceId, selectDeviceId } from 'redux/reducers/deviceIdSlice';
+import { useAppDispatch } from 'redux/hooks';
+import { updateDeviceId } from 'redux/reducers/deviceIdSlice';
 import { updateCredentials } from 'redux/reducers/credentialsSlice';
+import { playerState } from 'redux/reducers/playerStateSlice';
 import styles from 'styles/Home.module.scss';
 
 const Home: NextPage = ({ credentials }: any) => {
   const [player, setPlayer] = useState<any>(null);
   const dispatch = useAppDispatch();
-  const deviceId = useAppSelector(selectDeviceId);
 
   useEffect(() => {
     console.log('Home::useEffect - Updating Credentials...');
@@ -51,12 +51,18 @@ const Home: NextPage = ({ credentials }: any) => {
         <footer className={styles.footer}></footer>
 
         {credentials.access_token &&
+          // TODO: Move to separate component
           <Script
             src="https://sdk.scdn.co/spotify-player.js"
             onLoad={async () => {
+              async function playerStateChangedCallback(state: any) {
+                console.log('playerStateChangedCallback...');
+                dispatch(playerState(state));
+              }
+
               const player = new SpotifyWebPlayer('Minimalist Spotify Web Player', credentials.access_token);
               try {
-                const deviceId = await player.connect();
+                const deviceId = await player.connect(playerStateChangedCallback);
                 dispatch(updateDeviceId(deviceId));
                 setPlayer(player);
               } catch (e) {

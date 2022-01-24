@@ -1,33 +1,24 @@
-import { useState, useEffect } from 'react';
 import { PlayIcon, PauseIcon } from '@radix-ui/react-icons'
+import { useAppSelector } from 'redux/hooks';
+import { selectPlayerState } from 'redux/reducers/playerStateSlice';
 import styles from 'styles/SpotifyPlayer.module.scss';
 
 export default function PlayerControls({ player, isPlaying }: any) {
-  const [playing, setPlaying] = useState<boolean>(isPlaying);
-
-  useEffect(() => {
-    console.log('PlayerControls::useEffect:[isPlaying]');
-    setPlaying(isPlaying);
-  }, [isPlaying]);
+  const playerState = useAppSelector(selectPlayerState);
 
   function handleClick() {
-    if (player) {
-      if (playing) {
-        player.pause();
-        setPlaying(false);
-
-      } else {
-        player.resume();
-        setPlaying(true);
-      }
+    if (playerState.paused) {
+      player.resume();
+    } else {
+      player.pause();
     }
   }
 
   return (
     <div className={styles.SpotifyPlayer}>
-      {playing ? 
-        <PauseIcon onClick={handleClick} className={styles.pauseButton} /> :
-        <PlayIcon onClick={handleClick} className={styles.playButton} />
+      {playerState.paused ? 
+        <PlayIcon onClick={handleClick} className={styles.playButton} /> :
+        <PauseIcon onClick={handleClick} className={styles.pauseButton} />
       }
     </div>
   );

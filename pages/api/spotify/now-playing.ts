@@ -13,6 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   const song = await nowPlayingResponse.json();
   const isPlaying = song.is_playing;
+  const id = song.item.id;
   const title = song.item.name;
   const artist = song.item.artists.map((artist: any) => artist.name).join(', ');
   const album = song.item.album.name;
@@ -20,6 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const songUrl = song.item.external_urls.spotify;
 
   return res.status(200).json({
+    id,
     album,
     albumImageUrl,
     artist,

@@ -2,21 +2,23 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppState } from 'redux/store';
 
 const initialState: any = {
-  value: null
+  value: {
+    paused: true
+  }
 }
 
 export const slice = createSlice({
-  name: 'player',
+  name: 'track',
   initialState,
   reducers: {
-    updatePlayer: (state, action: PayloadAction<any>) => {
+    playerState: (state, action: PayloadAction<any>) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { updatePlayer } = slice.actions;
+export const { playerState } = slice.actions;
 
-export const selectPlayer = (state: AppState) => state.playerSlice.value;
+export const selectPlayerState = (state: AppState) => state.playerStateSlice.value;
 
 export default slice.reducer;
