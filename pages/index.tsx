@@ -1,15 +1,12 @@
 import type { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Script from 'next/script';
 import Image from 'next/image';
 import NowPlaying from 'components/NowPlaying';
 import TopTracks from 'components/TopTracks';
-import { SpotifyWebPlayer } from 'components/SpotifyPlayer';
+import SpotifyPlayer from 'components/SpotifyPlayer';
 import { useAppDispatch } from 'redux/hooks';
-import { updateDeviceId } from 'redux/reducers/deviceIdSlice';
 import { updateCredentials } from 'redux/reducers/credentialsSlice';
-import { playerState } from 'redux/reducers/playerStateSlice';
 import styles from 'styles/Home.module.scss';
 
 const Home: NextPage = ({ credentials }: any) => {
@@ -51,25 +48,8 @@ const Home: NextPage = ({ credentials }: any) => {
         <footer className={styles.footer}></footer>
 
         {credentials.access_token &&
-          // TODO: Move to separate component
-          <Script
-            src="https://sdk.scdn.co/spotify-player.js"
-            onLoad={async () => {
-              async function playerStateChangedCallback(state: any) {
-                console.log('playerStateChangedCallback...');
-                dispatch(playerState(state));
-              }
-
-              const player = new SpotifyWebPlayer('Minimalist Spotify Web Player', credentials.access_token);
-              try {
-                const deviceId = await player.connect(playerStateChangedCallback);
-                dispatch(updateDeviceId(deviceId));
-                setPlayer(player);
-              } catch (e) {
-                console.error('There was a problem connecting to the spotify web player.', e);
-              }
-            }}
-          />
+          // <SpotifyPlayer credentials={credentials} setPlayer={setPlayer} />
+          <SpotifyPlayer {...{ credentials, setPlayer }} />
         }
       </div>
     </>

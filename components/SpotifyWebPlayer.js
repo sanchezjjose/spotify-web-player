@@ -1,4 +1,4 @@
-export class SpotifyWebPlayer {
+export default class SpotifyWebPlayer {
 
   constructor(name, accessToken) {
     this.name = name;

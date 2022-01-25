@@ -8,7 +8,7 @@ const initialState: any = {
 }
 
 export const slice = createSlice({
-  name: 'track',
+  name: 'playerState',
   initialState,
   reducers: {
     playerState: (state, action: PayloadAction<any>) => {

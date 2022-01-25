@@ -1,6 +1,6 @@
 import { SyntheticEvent } from 'react';
 import { SpotifyTrack } from 'lib/types';
-import { useAppSelector, useAppDispatch } from 'redux/hooks';
+import { useAppSelector } from 'redux/hooks';
 import { selectDeviceId } from 'redux/reducers/deviceIdSlice';
 import styles from 'styles/Track.module.scss';
 
