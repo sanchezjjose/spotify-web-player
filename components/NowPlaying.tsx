@@ -7,15 +7,18 @@ import audioWave from '../public/icons8-audio-wave.gif';
 
 export default function NowPlaying({ player }: any) {
   const playerState = useAppSelector(selectPlayerState);
+  const artists = playerState.track_window?.current_track?.artists.map((artist: Record<string, any>) => artist.name).join(', ');
+  const trackName = playerState.track_window?.current_track?.name;
 
   return (
     <div className={styles.NowPlaying}>
-      {playerState.paused ?
-        <div>Not Playing.</div> :
-        <>
+      {!playerState.paused &&
           <Image className={styles.audioWaveImg} src={audioWave} width={60} height={60} alt='Audio Wave' />
-          <div>Now Playing <span>{playerState.track_window.current_track.name}</span></div>
-        </>
+      }
+      {artists && trackName &&
+        <div>
+          {artists} <span>{trackName}</span>
+        </div>
       }
       <PlayerControls player={player} />
     </div>

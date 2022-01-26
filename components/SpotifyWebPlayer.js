@@ -5,7 +5,6 @@ export default class SpotifyWebPlayer {
     this.accessToken = accessToken;
     this.player = null;
     this.deviceId = null;
-    this.state = null
   }
 
   async connect(playerStateChangedCallback) {

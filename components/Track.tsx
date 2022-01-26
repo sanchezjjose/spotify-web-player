@@ -20,7 +20,7 @@ export default function Track({ player, track }: TrackProps) {
 
   return (
     <div className={styles.Track}>
-      <b><a onClick={e => handleClick(e, track.uri)} href={track.uri}>{track.name}</a></b>
+      <span className={styles.trackName}><a onClick={e => handleClick(e, track.uri)} href={track.uri}>{track.name}</a></span>
       {' '}{artists}
     </div>
   );
