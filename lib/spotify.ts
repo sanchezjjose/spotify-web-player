@@ -3,14 +3,16 @@ import querystring from 'querystring';
 const {
   SPOTIFY_CLIENT_ID: client_id,
   SPOTIFY_CLIENT_SECRET: client_secret,
-  SPOTIFY_REFRESH_TOKEN: refresh_token
+  SPOTIFY_REFRESH_TOKEN: refresh_token,
+  NODE_ENV: nodeEnv
 } = process.env;
 
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
+const HOSTNAME = nodeEnv === 'production' ? 'https://minimalist-spotify.netlify.app' : 'http://localhost:3000';
 const NOW_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing';
 const TOP_TRACKS_ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
-const REDIRECTS_URI = 'http://localhost:3000/api/spotify/redirects';
+const REDIRECT_URI = `${HOSTNAME}/api/spotify/redirects`;
 
 export const getAuthorizationCode = async (code: string) => {
   const response = await fetch(TOKEN_ENDPOINT, {
@@ -21,7 +23,7 @@ export const getAuthorizationCode = async (code: string) => {
     },
     body: querystring.stringify({
       code: code,
-      redirect_uri: REDIRECTS_URI,
+      redirect_uri: REDIRECT_URI,
       grant_type: 'authorization_code'
     }),
   });

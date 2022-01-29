@@ -4,9 +4,11 @@ import querystring from 'querystring'
 
 const {
   SPOTIFY_CLIENT_ID: client_id,
+  NODE_ENV: nodeEnv
 } = process.env;
 
-const REDIRECT_URI = 'http://localhost:3000/api/spotify/redirects';
+const HOSTNAME = nodeEnv === 'production' ? 'https://minimalist-spotify.netlify.app' : 'http://localhost:3000';
+const REDIRECT_URI = `${HOSTNAME}/api/spotify/redirects`;
 
 const generateRandomString = (length: number): string => {
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
