@@ -11,7 +11,7 @@ export default function NowPlaying({ player }: any) {
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
 
   const playerState = useAppSelector(selectPlayerState);
-  const currentTrack = playerState.track_window?.current_track;
+  const currentTrack = playerState?.track_window?.current_track;
   const artists = currentTrack?.artists.map((artist: Record<string, any>) => artist.name).join(', ');
   const trackName = currentTrack?.name;
   const albumArt = currentTrack?.album.images[0].url;
@@ -41,7 +41,7 @@ export default function NowPlaying({ player }: any) {
             <Image src={albumArt} width={albumArtSize} height={albumArtSize} alt='Album Art' />
           </div>
       }
-      {!playerState.paused &&
+      {!playerState?.paused &&
           <Image src={audioWave} width={60} height={60} alt='Audio Wave' />
       }
       {artists && trackName &&

@@ -3,11 +3,11 @@ import { useAppSelector } from 'redux/hooks';
 import { selectPlayerState } from 'redux/reducers/playerStateSlice';
 import styles from 'styles/SpotifyPlayer.module.scss';
 
-export default function PlayerControls({ player, isPlaying }: any) {
+export default function PlayerControls({ player }: any) {
   const playerState = useAppSelector(selectPlayerState);
 
   function handleClick() {
-    if (playerState.paused) {
+    if (playerState?.paused) {
       player.resume();
     } else {
       player.pause();
@@ -16,7 +16,7 @@ export default function PlayerControls({ player, isPlaying }: any) {
 
   return (
     <div className={styles.SpotifyPlayer}>
-      {playerState.paused ? 
+      {playerState?.paused ? 
         <PlayIcon onClick={handleClick} className={styles.playButton} /> :
         <PauseIcon onClick={handleClick} className={styles.pauseButton} />
       }

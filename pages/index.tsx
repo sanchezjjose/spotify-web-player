@@ -14,7 +14,16 @@ const Home: NextPage = ({ credentials }: any) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    console.log('DEBUGGING: Player loaded?');
+    console.log(player);
+
+  }, [player]);
+
+  useEffect(() => {
     console.log('Home::useEffect - Updating Credentials...');
+
+    console.log('DEBUGGING:', credentials);
+
     dispatch(updateCredentials(credentials));
   }, [dispatch, credentials, credentials.access_token, credentials.refresh_token]);
 
@@ -42,6 +51,7 @@ const Home: NextPage = ({ credentials }: any) => {
 
           {player &&
             <>
+              <div>Loading TopTracks and NowPlaying...</div>
               <TopTracks player={player} />
               <NowPlaying player={player} />
             </>

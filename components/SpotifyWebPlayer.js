@@ -9,6 +9,12 @@ export default class SpotifyWebPlayer {
 
   async connect(playerStateChangedCallback) {
     return new Promise((resolve, reject) => {
+
+      console.log('DEBUGGING:', 'About to call window.onSpotifyWebPlaybackSDKReady...');
+      console.log('window undefined? ', window === undefined);
+      console.log('window.onSpotifyWebPlaybackSDKReady undefined? ', window.onSpotifyWebPlaybackSDKReady === undefined);
+      console.log('what now?');
+
       window.onSpotifyWebPlaybackSDKReady = () => {
         this.player = new Spotify.Player({
           name: this.name,
@@ -21,11 +27,11 @@ export default class SpotifyWebPlayer {
             this.deviceId = device_id;
             resolve(device_id);
         });
-    
+
         this.player.addListener('not_ready', ({ device_id }) => {
             console.log('Device ID has gone offline', device_id);
         });
-    
+
         this.player.addListener('initialization_error', ({ message }) => {
             console.error(message);
         });
@@ -34,7 +40,7 @@ export default class SpotifyWebPlayer {
             // debugger;
             console.error(message);
         });
-    
+
         this.player.addListener('account_error', ({ message }) => {
             console.error(message);
         });
