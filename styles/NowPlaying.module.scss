@@ -2,20 +2,42 @@
   display: flex;
   position: fixed;
   bottom: 0;
-  border-top: 1px solid #000;
-  background: #fff;
+  background: rgb(40, 40, 40);
+  cursor: pointer;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 1rem;
   gap: 1rem;
   font-weight: 700;
   height: 6rem; 
   width: 100%;
 
-  .albumArt {
-    position: absolute;
-    left: 10px;
+  &.maximized {
+    background-image: linear-gradient(rgba(96, 56, 56, 0.6), rgb(0, 0, 0) 85%);
+    background-color: #000;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    height: 100vh;
+    cursor: auto;
+
+    // .albumArt {
+    //   position: relative;
+    //   left: 0;
+    // }
+
+    .downArrow {
+      cursor: pointer;
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+    }
   }
+
+  // .albumArt {
+  //   position: absolute;
+  //   left: 10px;
+  // }
 
   .artists {
     color: rgb(107, 104, 104);
