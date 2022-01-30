@@ -38,11 +38,11 @@ export default function NowPlaying() {
       }
       {albumArt &&
           <div className={styles.albumArt}>
-            <Image src={albumArt} width={albumArtSize} height={albumArtSize} alt='Album Art' />
+            <Image src={albumArt} width={albumArtSize} height={albumArtSize} alt='Album Art' unoptimized={true} />
           </div>
       }
       {!playerState?.paused &&
-          <Image src={audioWave} width={60} height={60} alt='Audio Wave' />
+          <Image src={audioWave} width={60} height={60} alt='Audio Wave' unoptimized={true} />
       }
       {artists && trackName &&
         <div>{trackName} • <span className={styles.artists}>{artists}</span></div>
