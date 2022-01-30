@@ -30,24 +30,26 @@ export default function NowPlaying() {
   }
 
   return (
-    <div className={`${styles.NowPlaying} ${isMaximized && styles.maximized}`} onClick={handleNowPlayingBarClick}>
-      {isMaximized &&
-        <div className={styles.downArrow} onClick={handleMinimizeClick}>
-          <Image src={downArrow} width={24} height={24} alt='Down Arrow' />
-        </div>
-      }
-      {albumArt &&
-          <div className={styles.albumArt}>
-            <Image src={albumArt} width={albumArtSize} height={albumArtSize} alt='Album Art' unoptimized={true} />
+    <aside className={styles.ModalLayer}>
+      <div className={`${styles.NowPlaying} ${isMaximized && styles.maximized}`} onClick={handleNowPlayingBarClick}>
+        {isMaximized &&
+          <div className={styles.downArrow} onClick={handleMinimizeClick}>
+            <Image src={downArrow} width={24} height={24} alt='Down Arrow' />
           </div>
-      }
-      {!playerState?.paused &&
-          <Image src={audioWave} width={60} height={60} alt='Audio Wave' unoptimized={true} />
-      }
-      {artists && trackName &&
-        <div>{trackName} • <span className={styles.artists}>{artists}</span></div>
-      }
-      <PlayerControls />
-    </div>
+        }
+        {albumArt &&
+            <div className={styles.albumArt} style={{'width': albumArtSize, 'height': albumArtSize}}>
+              <Image src={albumArt} width={albumArtSize} height={albumArtSize} alt='Album Art' unoptimized={true} />
+            </div>
+        }
+        {!playerState?.paused &&
+            <Image src={audioWave} width={60} height={60} alt='Audio Wave' unoptimized={true} />
+        }
+        {artists && trackName &&
+          <div>{trackName} • <span className={styles.artists}>{artists}</span></div>
+        }
+        <PlayerControls />
+      </div>
+    </aside>
   );
 };

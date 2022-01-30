@@ -1,3 +1,18 @@
+.ModalLayer {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.ModalLayer * {
+  pointer-events: all;
+}
+
 .NowPlaying {
   display: flex;
   position: fixed;
@@ -12,6 +27,23 @@
   height: 6rem; 
   width: 100%;
 
+  // position: fixed;
+  // bottom: 48px;
+  // transform: translateY(50%);
+  // opacity: 0;
+  // left: 0px;
+  // -webkit-box-align: center;
+  // align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // height: 45px;
+  // width: 100%;
+  // -webkit-box-pack: center;
+  // justify-content: center;
+  // padding: 0px;
+  // background-color: rgb(40, 40, 40);
+  // animation: 0.2s cubic-bezier(0.3, 0, 0, 1) 0.2s 1 normal forwards running transIn;
+
   &.maximized {
     background-image: linear-gradient(rgba(96, 56, 56, 0.6), rgb(0, 0, 0) 85%);
     background-color: #000;
@@ -21,10 +53,16 @@
     height: 100vh;
     cursor: auto;
 
-    // .albumArt {
-    //   position: relative;
-    //   left: 0;
-    // }
+    // display: flex;
+    // height: 100%;
+    // width: 100%;
+    // flex-direction: column;
+    // padding: 24px;
+    // background-color: rgb(0, 0, 0);
+    // background-image: linear-gradient(rgba(72, 64, 64, 0.6), rgb(0, 0, 0) 85%);
+    // transform: translateY(20%);
+    // opacity: 0;
+    // animation: 0.2s cubic-bezier(0.3, 0, 0, 1) 0.2s 1 normal forwards running transIn;
 
     .downArrow {
       cursor: pointer;
@@ -33,11 +71,6 @@
       left: 2rem;
     }
   }
-
-  // .albumArt {
-  //   position: absolute;
-  //   left: 10px;
-  // }
 
   .artists {
     color: rgb(107, 104, 104);
