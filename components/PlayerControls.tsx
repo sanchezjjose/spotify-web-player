@@ -10,7 +10,9 @@ export default function PlayerControls() {
   const { accessToken } = useAppSelector(selectCredentials);
   const { player, loading }: any = useSpotifyPlayer('Minimalist Web Player', accessToken);
 
-  async function handleClick() {
+  console.log('PlayerControls :: playerState.paused', playerState.paused);
+
+  async function handleTogglePlay() {
     if (playerState.paused) {
       await player.resume();
     } else {
@@ -25,8 +27,8 @@ export default function PlayerControls() {
   return (
     <div className={styles.SpotifyPlayer}>
       {playerState.paused ? 
-        <PlayIcon onClick={handleClick} className={styles.playButton} /> :
-        <PauseIcon onClick={handleClick} className={styles.pauseButton} />
+        <PlayIcon onClick={handleTogglePlay} className={styles.playButton} /> :
+        <PauseIcon onClick={handleTogglePlay} className={styles.pauseButton} />
       }
     </div>
   );

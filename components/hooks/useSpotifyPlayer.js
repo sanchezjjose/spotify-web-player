@@ -55,6 +55,7 @@ export default function useSpotifyPlayer(name, accessToken) {
 
         player.addListener('player_state_changed', (state) => {
           console.log('player_state_changed');
+          console.log(state && state.paused);
 
           if (!state) {
             return;
