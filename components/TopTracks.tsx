@@ -6,9 +6,8 @@ import { selectCredentials } from 'redux/reducers/credentialsSlice';
 import Track from './Track';
 import styles from 'styles/TopTracks.module.scss';
 
-export default function TopTracks({ player }: any) {
-  const credentials = useAppSelector(selectCredentials);
-  const { accessToken } = credentials;
+export default function TopTracks() {
+  const { accessToken } = useAppSelector(selectCredentials);
   const { data, error } = useSWR<SpotifyTopTracks>(`/api/spotify/top-tracks?access_token=${accessToken}`, fetcher);
 
   if (error) return <div>Failed to load</div>;
@@ -17,7 +16,7 @@ export default function TopTracks({ player }: any) {
   return (
     <div className={styles.TopTracks}>
       {data.items.map((track) => (
-        <Track key={track.id} track={track} player={player} />
+        <Track key={track.id} track={track} />
       ))}
     </div>
   );

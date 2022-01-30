@@ -1,13 +1,13 @@
 import { SyntheticEvent, useState } from 'react';
 import Image from 'next/image';
+import PlayerControls from 'components/PlayerControls';
 import { useAppSelector } from 'redux/hooks';
 import { selectPlayerState } from 'redux/reducers/playerStateSlice';
-import PlayerControls from './PlayerControls';
-import styles from 'styles/NowPlaying.module.scss';
 import audioWave from 'public/icons8-audio-wave.gif';
 import downArrow from 'public/light-icons8-down-24.png';
+import styles from 'styles/NowPlaying.module.scss';
 
-export default function NowPlaying({ player }: any) {
+export default function NowPlaying() {
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
 
   const playerState = useAppSelector(selectPlayerState);
@@ -47,7 +47,7 @@ export default function NowPlaying({ player }: any) {
       {artists && trackName &&
         <div>{trackName} • <span className={styles.artists}>{artists}</span></div>
       }
-      <PlayerControls player={player} />
+      <PlayerControls />
     </div>
   );
 };

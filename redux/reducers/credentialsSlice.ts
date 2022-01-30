@@ -3,7 +3,7 @@ import { AppState } from 'redux/store';
 
 export interface CredentialsState {
   accessToken: null | string,
-  refreshToken: null| string
+  refreshToken: null | string
 }
 
 const initialState: CredentialsState = {

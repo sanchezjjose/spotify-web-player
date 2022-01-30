@@ -1,26 +1,33 @@
 import { SyntheticEvent } from 'react';
 import { SpotifyTrack } from 'lib/types';
 import { useAppSelector } from 'redux/hooks';
+import { selectCredentials } from 'redux/reducers/credentialsSlice';
 import { selectDeviceId } from 'redux/reducers/deviceIdSlice';
+import { play } from 'components/utils/player';
 import styles from 'styles/Track.module.scss';
 
 interface TrackProps {
-  player: any,
   track: SpotifyTrack
 }
 
-export default function Track({ player, track }: TrackProps) {
-  const artists = track.artists.map(artist => artist.name).join(', ');
+export default function Track({ track }: TrackProps) {
+  const { accessToken } = useAppSelector(selectCredentials);
   const deviceId = useAppSelector(selectDeviceId);
+  const artists = track.artists.map(artist => artist.name).join(', ');
 
   function handleClick(e: SyntheticEvent, spotifyURI: string) {
+    console.log(`Track :: accessToken ${accessToken} :: deviceId ${deviceId}`);
     e.preventDefault();
-    player.play(deviceId, spotifyURI);
+    if (accessToken && deviceId) {
+      play(accessToken, deviceId, spotifyURI);
+    }
   }
 
   return (
     <div className={styles.Track}>
-      <span className={styles.trackName}><a onClick={e => handleClick(e, track.uri)} href={track.uri}>{track.name}</a></span>
+      <span className={styles.trackName}>
+        <a href={track.uri} onClick={e => handleClick(e, track.uri)}>{track.name}</a>
+      </span>
       {' '}{artists}
     </div>
   );

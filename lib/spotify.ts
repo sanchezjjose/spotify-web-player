@@ -9,10 +9,10 @@ const {
 
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 const HOSTNAME = nodeEnv === 'production' ? 'https://minimalist-spotify.netlify.app' : 'http://localhost:3000';
+const REDIRECT_URI = `${HOSTNAME}/api/spotify/redirects`;
 const NOW_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing';
 const TOP_TRACKS_ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
-const REDIRECT_URI = `${HOSTNAME}/api/spotify/redirects`;
 
 export const getAuthorizationCode = async (code: string) => {
   const response = await fetch(TOKEN_ENDPOINT, {
@@ -44,7 +44,7 @@ export const getAccessToken = async () => {
     }),
   });
   return response.json();
-};
+}
 
 export const getNowPlaying = async (access_token: string) => {
   return fetch(NOW_PLAYING_ENDPOINT, {
@@ -52,7 +52,7 @@ export const getNowPlaying = async (access_token: string) => {
       Authorization: `Bearer ${access_token}`,
     },
   });
-};
+}
 
 export const getTopTracks = async (access_token: string) => {
   return fetch(TOP_TRACKS_ENDPOINT, {
@@ -60,4 +60,4 @@ export const getTopTracks = async (access_token: string) => {
       Authorization: `Bearer ${access_token}`
     }
   });
-};
+}
