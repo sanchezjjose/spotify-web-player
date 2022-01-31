@@ -38,7 +38,7 @@ export default function NowPlaying() {
           </div>
         }
         {albumArt &&
-            <div className={styles.albumArt} style={{'width': albumArtSize, 'height': albumArtSize}}>
+            <div className={styles.albumArt}>
               <Image src={albumArt} width={albumArtSize} height={albumArtSize} alt='Album Art' unoptimized={true} />
             </div>
         }

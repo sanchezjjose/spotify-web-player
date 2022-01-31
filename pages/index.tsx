@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Login from 'components/Login';
+import Header from 'components/Header';
 import NowPlayingBar from 'components/NowPlayingBar';
 import TopTracks from 'components/TopTracks';
 import { useAppDispatch } from 'redux/hooks';
@@ -30,15 +31,18 @@ const Home: NextPage = ({ credentials }: any) => {
         </Head>
 
         <main className={styles.main}>
-          <Image className={styles.spotifyLogo} src='/spotify.svg' width={32} height={32} alt='Spotify Logo' />
-          <h1 className={styles.title}>Minimalist Spotify</h1>
+          <div>
+            {credentials.access_token ? (
+              <div className='scrollableNode'>
+                <Header />
+                <TopTracks />
+              </div>
+              ) : <Login />
+            }
+          </div>
 
-          {credentials.access_token ?
-            <>
-              <TopTracks />
-              <NowPlayingBar />
-            </> :
-            <Login />
+          {credentials.access_token &&
+            <NowPlayingBar />
           }
         </main>
       </div>
