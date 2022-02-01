@@ -32,12 +32,14 @@ const Home: NextPage = ({ credentials }: any) => {
 
         <main className={styles.main}>
           <div>
+            <Header />
             {credentials.access_token ? (
-              <div className='scrollableNode'>
-                <Header />
-                <TopTracks />
-              </div>
-              ) : <Login />
+                <div className='scrollableNode'>
+                  <TopTracks />
+                </div>
+              ) : (
+                <Login />
+              )
             }
           </div>
 

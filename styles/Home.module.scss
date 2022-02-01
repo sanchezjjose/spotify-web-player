@@ -20,12 +20,6 @@
   align-items: center;
 }
 
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
 .title {
   margin: 1rem;
   line-height: 1.15;
@@ -33,18 +27,25 @@
   font-weight: 600;
 }
 
-.title,
-.description {
+.title {
   text-align: center;
 }
 
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
+.Header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .loginButton {
+  display: flex;
+  align-items: center;
   border: none;
   border-radius: 3rem;
   box-shadow: -7px -5px 2px 0px #65d36e;
